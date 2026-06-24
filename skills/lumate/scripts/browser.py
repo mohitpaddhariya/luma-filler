@@ -56,8 +56,9 @@ PROCEED = re.compile(r"(register|rsvp|request to join|join (the )?event|one.?cli
 PAID = re.compile(r"(get tickets?|checkout|buy|purchase|\$\s?\d|reserve.*\$)", re.I)
 CLOSED = re.compile(r"(registration closed|sold out|join waitlist|waitlist|event ended|at capacity|\bfull\b)", re.I)
 SUBMIT = re.compile(r"(register|request to join|rsvp|submit|confirm|complete|get tickets?|reserve|continue|one.?click|going)", re.I)
-SUCCESS = re.compile(r"(you'?re in|you are in|registered|request (received|sent)|pending approval|you'?re going|see you|added to calendar|your ticket|qr code)", re.I)
+SUCCESS = re.compile(r"(you'?re in|you are in|registered|registration (pending|complete|confirmed|received)|request (was )?(received|sent|submitted)|pending approval|you'?re going|see you|added to calendar|your ticket|qr code)", re.I)
 CAPTCHA = re.compile(r"(verify you are human|verifying your browser|are you human|cloudflare|hcaptcha|recaptcha|complete the captcha)", re.I)
+SUBMIT_ERROR = re.compile(r"(this field is required|required field|fields? (is|are) required|please (fill|complete|select|enter|tick|check|answer|provide|choose|agree)|is required|fix the (error|fields|following)|invalid|cannot be (empty|blank)|enter a valid|you must (agree|accept|confirm|check|select|bring|fill))", re.I)
 
 COMBO_PLACEHOLDER = "select an option"   # Luma's lazy custom-dropdown trigger text
 COMBO_PROBE_BUDGET_S = 8.0
@@ -445,11 +446,16 @@ def apply_answers(page, answers):
                 except Exception:
                     loc.select_option(value)
             elif action == "click":
-                loc.click()
+                # robust_click (normal -> JS dispatch -> force) so a checkbox/radio
+                # routed to a hidden/covered <input> still ticks; a plain .click()
+                # is "not actionable" on Luma's custom controls and times out.
+                if not robust_click(loc, page):
+                    raise RuntimeError("click did not register")
             elif action == "combo":
                 # Luma lazy custom dropdown: click the labelled input to open it,
                 # then click the visible option whose text == value.
-                loc.click()
+                if not robust_click(loc, page):
+                    raise RuntimeError("could not open dropdown")
                 page.wait_for_timeout(700)
                 picked = False
                 cand = page.get_by_text(value, exact=True)
@@ -627,19 +633,16 @@ def cmd_fill(url, answers_path, do_submit=False):
                 page.wait_for_load_state("networkidle", timeout=8000)
             except Exception:
                 pass
-            body = (page.inner_text("body") or "")
             shot = os.path.join(SHOT_DIR, "result.png")
             try:
                 page.screenshot(path=shot, full_page=True)
             except Exception:
                 shot = ""
             out.update({
-                "submitted": True,
+                "submitted": True,          # the submit button was clicked
                 "submit_button": btn_text,
-                "success": bool(SUCCESS.search(body)),
-                "captcha": bool(CAPTCHA.search(body)),
-                "result_text": body[:1500],
                 "screenshot": shot,
+                **submit_outcome(page),     # real success / form_still_open / validation_error / captcha
             })
             print(json.dumps(out, ensure_ascii=False))
         finally:
@@ -752,12 +755,14 @@ def cmd_apply(url, answers_path, do_submit=False):
                 out["screenshot"] = shot
                 print(json.dumps(out, ensure_ascii=False))
                 return
-            # Submit guard: never submit while a REQUIRED field is uncovered or failed.
-            req_norm = {_norm(f.get("label") or "") for f in fields if f.get("required")}
-            failed_req = [x.get("field") for x in failed if _norm(str(x.get("field"))) in req_norm]
-            if missing or failed_req:
+            # Submit guard: never submit while a required field is uncovered OR any
+            # answer we tried failed to apply. A client-side-required checkbox is
+            # required=False in the DOM, so blocking on `failed` (not just DOM-required
+            # fields) is what stops submitting into a validation wall.
+            failed_fields = [x.get("field") for x in failed]
+            if missing or failed_fields:
                 out["submitted"] = False
-                out["reason"] = "required not covered/filled: " + ", ".join(missing + failed_req)
+                out["reason"] = "not submitted, unresolved fields: " + ", ".join(missing + failed_fields)
                 try:
                     page.screenshot(path=os.path.join(SHOT_DIR, "filled.png"))
                 except Exception:
@@ -780,23 +785,43 @@ def cmd_apply(url, answers_path, do_submit=False):
                 page.wait_for_load_state("networkidle", timeout=8000)
             except Exception:
                 pass
-            body = (page.inner_text("body") or "")
             shot = os.path.join(SHOT_DIR, "result.png")
             try:
                 page.screenshot(path=shot, full_page=True)
             except Exception:
                 shot = ""
             out.update({
-                "submitted": True,
+                "submitted": True,          # the submit button was clicked
                 "submit_button": btn_text,
-                "success": bool(SUCCESS.search(body)),
-                "captcha": bool(CAPTCHA.search(body)),
-                "result_text": body[:1500],
                 "screenshot": shot,
+                **submit_outcome(page),     # real success / form_still_open / validation_error / captcha
             })
             print(json.dumps(out, ensure_ascii=False))
         finally:
             ctx.close()
+
+
+def submit_outcome(page):
+    """Judge the REAL result of a submit. The event description trips the SUCCESS
+    keywords, so a keyword match alone is NOT trusted: success also requires the
+    registration form to have actually advanced (its fields are gone) and no captcha."""
+    try:
+        body = page.inner_text("body") or ""
+    except Exception:
+        body = ""
+    # >=2 visible form controls means the form is still sitting there; a lone
+    # nav/search input shouldn't count as "still open".
+    form_open = len(extract_fields(page, probe_combos=False)) >= 2
+    captcha = bool(CAPTCHA.search(body))
+    success = bool(SUCCESS.search(body)) and not form_open and not captcha
+    err = SUBMIT_ERROR.search(body) if form_open else None
+    return {
+        "success": success,
+        "form_still_open": form_open,
+        "validation_error": err.group(0) if err else None,
+        "captcha": captcha,
+        "result_text": body[:1500],
+    }
 
 
 def main(argv):

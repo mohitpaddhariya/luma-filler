@@ -291,11 +291,13 @@ $BR apply "<url>" /path/answers.json --submit   # PREFERRED: one launch — read
 ```
 `apply --submit` refuses (`submitted:false` + `reason`) if any required field is uncovered
 or failed — trust that guard; resolve, persist, rebuild, and retry. Both return
-`submitted`, `submit_button`, `success`, `captcha`, and `result_text`
-(+ `result.png`). Confirm real success from `result_text`/the screenshot — don't assume.
-Look for "You're In", "Registered", "Request received / pending approval", a ticket/QR, or
-a calendar add. If `success` is false or you see validation errors, fix the named fields
-and re-submit. If it's "pending approval", report the host must approve. **If `captcha` is
+`submitted` (the button was clicked), `success`, `form_still_open`, `validation_error`,
+`captcha`, and `result_text` (+ `result.png`). **Trust `success`**: it is true only when a
+confirmation showed AND the form actually advanced (its fields are gone), so it no longer
+false-fires on the event's own description text. If `success` is false the registration did
+NOT go through: read `validation_error` / `form_still_open` (fix the named field and
+re-submit) or `captcha`. A glance at `result.png` is still wise. If it's "pending approval",
+report the host must approve. **If `captcha` is
 true** (Cloudflare "verify you are human" / hCaptcha), the submit is bot-blocked — stop,
 don't try to solve it, and hand off so the user finishes in a visible browser (the form is
 already filled, so a headed run pre-fills it for a one-click finish). This mostly happens
