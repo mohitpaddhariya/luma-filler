@@ -1,12 +1,17 @@
 <div align="center">
 
-# 🎟️ luma-filler
+<h1>🎟️ luma-filler</h1>
 
-### Paste a Luma link. It registers you. Stop filling out the same form forever.
+<h3><em>Paste a Luma link. It registers you.</em></h3>
+<p>Stop filling out the same event form, over and over, forever.</p>
 
-[![MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Python](https://img.shields.io/badge/python-3.10+-blue)
-![Claude Code](https://img.shields.io/badge/Claude%20Code-skill-da7756)
+<p>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2E8B57?style=for-the-badge" alt="MIT License"></a>
+  &nbsp;<img src="https://img.shields.io/badge/Claude_Code-skill-da7756?style=for-the-badge" alt="Claude Code Skill">
+  &nbsp;<img src="https://img.shields.io/badge/your_data-100%25_local-2f81f7?style=for-the-badge" alt="100% Local">
+</p>
+
+<img src="assets/hero.png" alt="luma-filler registering for two events — the second with zero questions" width="780">
 
 </div>
 
@@ -18,21 +23,11 @@ Then the form loads: name, email, phone, LinkedIn, GitHub, job title, *"what hav
 built?"*, *"why do you want to attend?"* — for the **tenth time this month**.
 
 **luma-filler does it for you.** Paste the link → it reads the event, fills every field from
-your profile, writes real answers from your GitHub, and submits. Then it **remembers** — so
-the next event asks you *nothing*.
+your profile, writes real answers from your GitHub, and submits.
 
-## ✨ The magic
-
-```text
-you →  /luma-filler  https://lu.ma/that-cool-hackathon
-       reading the event… drafting your answers…   ✓ registered
-
-       (next event, same questions)
-you →  /luma-filler  https://lu.ma/another-one
-       registering you from your saved profile…    ✓ done — zero questions
-```
-
-First time, it learns you. Every time after, it's one paste and zero typing.
+> [!TIP]
+> **It learns you.** The first event teaches it your answers. Every event after registers
+> with **zero questions** in a single pass — one paste, zero typing.
 
 ## What it does for you
 
@@ -40,20 +35,24 @@ First time, it learns you. Every time after, it's one paste and zero typing.
 - ⚡ **Fills everything** — name, email, socials, job title… from your saved profile
 - ✍️ **Writes your answers** — *"what have you built?"* answered from your **real GitHub
   projects** (grounded in fact, never made up)
-- 🔁 **Gets faster every time** — remembers every answer; repeat events go through in one pass
+- 🔁 **Gets faster every time** — remembers every answer; repeats go through in one pass
 - ✋ **Confirms before submitting** — and only goes hands-off when everything's already known
 
-<sub>Under the hood: a `SKILL.md` workflow + three tiny Python helpers — answer memory,
-GitHub research, and a headless Playwright browser. No external services.</sub>
+<sub>Under the hood: a <code>SKILL.md</code> workflow + three tiny Python helpers — answer
+memory, GitHub research, and a headless Playwright browser. No external services.</sub>
 
 ## 🚀 Get started
+
+> [!NOTE]
+> luma-filler is a [Claude Code](https://claude.com/claude-code) skill — drop it in your
+> skills folder and talk to it.
 
 ```bash
 git clone https://github.com/mohitpaddhariya/luma-filler.git ~/.claude/skills/luma-filler
 python3 -m venv ~/.luma-filler/venv && ~/.luma-filler/venv/bin/pip install playwright
 ```
 
-It's a [Claude Code](https://claude.com/claude-code) skill. Then just hand it a link:
+Then just hand it a link:
 
 ```text
 /luma-filler  https://lu.ma/your-event
