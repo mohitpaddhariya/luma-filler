@@ -1,0 +1,45 @@
+{
+  "identity": {
+    "first_name": "",
+    "last_name": "",
+    "full_name": "",
+    "email": "",
+    "phone": ""
+  },
+  "professional": {
+    "company": "",
+    "work_email": "",
+    "job_title": "",
+    "role": "",
+    "linkedin": "",
+    "twitter": "",
+    "github": "",
+    "website": "",
+    "city": "",
+    "country": "",
+    "product_role": "",
+    "community": "",
+    "experience_level": ""
+  },
+  "preferences": {
+    "dietary": "",
+    "tshirt_size": "",
+    "pronouns": "",
+    "languages": "",
+    "marketing_opt_in": "No"
+  },
+  "about": {
+    "headline": "",
+    "bio": "",
+    "what_i_build": "",
+    "current_focus": "",
+    "interests": "",
+    "goals": "",
+    "skills": "",
+    "fun_fact": ""
+  },
+  "custom_answers": {
+    "how did hear about": "A friend / community",
+    "what hope get out": "Meet people and learn"
+  }
+}
