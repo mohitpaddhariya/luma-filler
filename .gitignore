@@ -10,6 +10,5 @@ venv/
 Thumbs.db
 
 # Runtime data lives at ~/.luma-filler/ (profile, research cache, login profile,
-# screenshots) and must NEVER be committed.
+# screenshots) — it's outside this repo and is never committed. Repo images go in assets/.
 .luma-filler/
-*.png
