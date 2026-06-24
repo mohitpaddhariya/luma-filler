@@ -1,0 +1,32 @@
+<svg width="880" height="430" viewBox="0 0 880 430" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#161b27"/>
+      <stop offset="1" stop-color="#0d1018"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="9" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- window -->
+  <rect x="30" y="26" width="820" height="370" rx="16" fill="url(#win)" stroke="#262c3a" stroke-width="1" filter="url(#shadow)"/>
+
+  <!-- title bar -->
+  <circle cx="58" cy="54" r="6.5" fill="#ff5f57"/>
+  <circle cx="82" cy="54" r="6.5" fill="#febc2e"/>
+  <circle cx="106" cy="54" r="6.5" fill="#28c840"/>
+  <text x="440" y="59" text-anchor="middle" font-size="13" fill="#5b6472">luma-filler — register for any Luma event</text>
+  <line x1="30" y1="80" x2="850" y2="80" stroke="#222838" stroke-width="1"/>
+
+  <!-- session -->
+  <text x="58" y="126" font-size="17"><tspan fill="#f0567e" font-weight="700">❯</tspan><tspan fill="#d7dce5"> /luma-filler </tspan><tspan fill="#6cb6ff">https://lu.ma/that-cool-hackathon</tspan></text>
+  <text x="58" y="159" font-size="15.5" fill="#7d8694">   reading the event · researching you · drafting your answers…</text>
+  <text x="58" y="192" font-size="17"><tspan fill="#3fd27a" font-weight="700">✓</tspan><tspan fill="#d7dce5"> Registered — pending host approval</tspan></text>
+
+  <text x="58" y="254" font-size="17"><tspan fill="#f0567e" font-weight="700">❯</tspan><tspan fill="#d7dce5"> /luma-filler </tspan><tspan fill="#6cb6ff">https://lu.ma/another-meetup</tspan></text>
+  <text x="58" y="287" font-size="15.5" fill="#7d8694">   filling from your saved profile…</text>
+  <text x="58" y="320" font-size="17"><tspan fill="#3fd27a" font-weight="700">✓</tspan><tspan fill="#d7dce5"> Done. </tspan><tspan fill="#3fd27a" font-weight="700">Zero questions asked.</tspan></text>
+
+  <text x="440" y="372" text-anchor="middle" font-size="13" fill="#5b6472" font-style="italic">first time, it learns you · every time after, one paste and zero typing</text>
+</svg>
