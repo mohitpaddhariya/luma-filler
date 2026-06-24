@@ -1,6 +1,8 @@
 <div align="center">
 
-<h1>🎟️ luma-filler</h1>
+<img src="assets/icon.png" alt="luma-filler logo — a smiling event ticket with a green check" width="128" height="128">
+
+<h1>luma-filler</h1>
 
 <h3><em>Paste a Luma link. It registers you.</em></h3>
 <p>Stop filling out the same event form, over and over, forever.</p>

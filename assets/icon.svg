@@ -1,0 +1,48 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6aa2"/>
+      <stop offset="1" stop-color="#b5179e"/>
+    </linearGradient>
+    <linearGradient id="tk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fdeef5"/>
+    </linearGradient>
+    <filter id="ds" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#5a0b3f" flood-opacity="0.28"/>
+    </filter>
+    <mask id="notch">
+      <rect x="0" y="0" width="512" height="512" fill="white"/>
+      <circle cx="200" cy="170" r="19" fill="black"/>
+      <circle cx="200" cy="342" r="19" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- app-icon background -->
+  <rect x="0" y="0" width="512" height="512" rx="116" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="256" rx="116" fill="#ffffff" opacity="0.06"/>
+
+  <!-- sparkles -->
+  <g fill="#ffffff">
+    <path d="M404 120 l6 17 17 6 -17 6 -6 17 -6 -17 -17 -6 17 -6 z" opacity="0.95"/>
+    <circle cx="98" cy="372" r="7" opacity="0.85"/>
+    <circle cx="430" cy="380" r="5" opacity="0.7"/>
+  </g>
+
+  <!-- the ticket mascot -->
+  <g transform="rotate(-7 256 256)" filter="url(#ds)">
+    <rect x="120" y="170" width="272" height="172" rx="26" fill="url(#tk)" mask="url(#notch)"/>
+    <!-- perforation / stub divider -->
+    <line x1="200" y1="184" x2="200" y2="328" stroke="#f4c8db" stroke-width="5" stroke-dasharray="0.5 14" stroke-linecap="round"/>
+    <!-- left stub: a green "registered" check -->
+    <circle cx="160" cy="256" r="25" fill="#2fc275"/>
+    <path d="M148 257 l9 10 16 -20" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- face on the main stub -->
+    <circle cx="278" cy="250" r="12" fill="#46243c"/>
+    <circle cx="320" cy="250" r="12" fill="#46243c"/>
+    <path d="M272 284 Q299 306 326 284" stroke="#46243c" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <!-- tiny cheeks -->
+    <circle cx="262" cy="276" r="7" fill="#ffd0e0"/>
+    <circle cx="336" cy="276" r="7" fill="#ffd0e0"/>
+  </g>
+</svg>
