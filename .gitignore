@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime data lives at ~/.luma-filler/ (profile, research cache, login profile,
+# screenshots) and must NEVER be committed.
+.luma-filler/
+*.png

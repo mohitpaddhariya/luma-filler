@@ -1,0 +1,3 @@
+# The only third-party dependency. profile.py and research.py are stdlib-only;
+# browser.py drives a headless Chromium via Playwright.
+playwright>=1.49
