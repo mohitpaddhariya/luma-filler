@@ -11,6 +11,8 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2E8B57?style=for-the-badge" alt="MIT License"></a>
   &nbsp;<img src="https://img.shields.io/badge/Claude_Code-skill-da7756?style=for-the-badge" alt="Claude Code Skill">
   &nbsp;<img src="https://img.shields.io/badge/your_data-100%25_local-2f81f7?style=for-the-badge" alt="100% Local">
+  <br><br>
+  <a href="https://skills.sh/mohitpaddhariya/lumate"><img src="https://skills.sh/b/mohitpaddhariya/lumate" alt="View Lumate on skills.sh"></a>
 </p>
 
 <img src="assets/hero.png" alt="Lumate registering for two events, the second with zero questions" width="780">
@@ -46,11 +48,18 @@ answer memory, GitHub research, and a headless Playwright browser. No external s
 ## Get started
 
 > [!NOTE]
-> Lumate is a [Claude Code](https://claude.com/claude-code) skill. Drop it in your skills
-> folder and talk to it.
+> Lumate is a [Claude Code](https://claude.com/claude-code) skill, installable through the
+> open [skills](https://skills.sh) ecosystem.
+
+Install it globally with one command:
 
 ```bash
-git clone https://github.com/mohitpaddhariya/lumate.git ~/.claude/skills/lumate
+npx skills add mohitpaddhariya/lumate -g
+```
+
+Then a one-time setup for the headless browser:
+
+```bash
 python3 -m venv ~/.lumate/venv && ~/.lumate/venv/bin/pip install playwright
 ```
 
