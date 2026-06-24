@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/icon.png" alt="luma-filler logo — a smiling event ticket with a green check" width="128" height="128">
+<img src="assets/icon.png" alt="Lumate logo — a smiling event ticket with a green check" width="128" height="128">
 
-<h1>luma-filler</h1>
+<h1>Lumate</h1>
 
 <h3><em>Paste a Luma link. It registers you.</em></h3>
 <p>Stop filling out the same event form, over and over, forever.</p>
@@ -13,7 +13,7 @@
   &nbsp;<img src="https://img.shields.io/badge/your_data-100%25_local-2f81f7?style=for-the-badge" alt="100% Local">
 </p>
 
-<img src="assets/hero.png" alt="luma-filler registering for two events — the second with zero questions" width="780">
+<img src="assets/hero.png" alt="Lumate registering for two events — the second with zero questions" width="780">
 
 </div>
 
@@ -24,7 +24,7 @@ It's 11:47pm. You found the perfect hackathon on [Luma](https://lu.ma).
 Then the form loads: name, email, phone, LinkedIn, GitHub, job title, *"what have you
 built?"*, *"why do you want to attend?"* — for the **tenth time this month**.
 
-**luma-filler does it for you.** Paste the link → it reads the event, fills every field from
+**Lumate does it for you.** Paste the link → it reads the event, fills every field from
 your profile, writes real answers from your GitHub, and submits.
 
 > [!TIP]
@@ -46,23 +46,23 @@ memory, GitHub research, and a headless Playwright browser. No external services
 ## 🚀 Get started
 
 > [!NOTE]
-> luma-filler is a [Claude Code](https://claude.com/claude-code) skill — drop it in your
+> Lumate is a [Claude Code](https://claude.com/claude-code) skill — drop it in your
 > skills folder and talk to it.
 
 ```bash
-git clone https://github.com/mohitpaddhariya/luma-filler.git ~/.claude/skills/luma-filler
-python3 -m venv ~/.luma-filler/venv && ~/.luma-filler/venv/bin/pip install playwright
+git clone https://github.com/mohitpaddhariya/lumate.git ~/.claude/skills/lumate
+python3 -m venv ~/.lumate/venv && ~/.lumate/venv/bin/pip install playwright
 ```
 
 Then just hand it a link:
 
 ```text
-/luma-filler  https://lu.ma/your-event
+/lumate  https://lu.ma/your-event
 ```
 
 ## 🔒 Your data, your control
 
-- Everything stays **local** in `~/.luma-filler/` — nothing personal lives in this repo.
+- Everything stays **local** in `~/.lumate/` — nothing personal lives in this repo.
 - It **asks before it submits**; hands-off only when every value is already saved and safe.
 - **No CAPTCHA-solving.** If a host throws a bot-check, it hands off to you — and logged in,
   you won't see one.

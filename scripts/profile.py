@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""luma-filler profile helper.
+"""lumate profile helper.
 
 A tiny, dependency-free CLI for reading/writing the saved Luma registration
 profile and fuzzy-matching a custom event question to a previously stored answer.
 
 Profile location (in order):
   1. $LUMA_PROFILE
-  2. ~/.luma-filler/profile.json
+  2. ~/.lumate/profile.json
 
 Usage:
   profile.py init                      # create profile.json from template if missing
@@ -115,7 +115,7 @@ def profile_path():
     p = os.environ.get("LUMA_PROFILE")
     if p:
         return os.path.expanduser(p)
-    return os.path.expanduser("~/.luma-filler/profile.json")
+    return os.path.expanduser("~/.lumate/profile.json")
 
 
 def load():

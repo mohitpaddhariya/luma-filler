@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""luma-filler research helper.
+"""lumate research helper.
 
 Fetches and caches PUBLIC research about the user, used to ground answers to
 open-ended event questions ("what have you built?", "why attend?"). Two sources:
 
   - GitHub: public REST API (no auth), via urllib with a `gh` CLI fallback. The
-    only network-touching part of luma-filler.
+    only network-touching part of lumate.
   - LinkedIn: this script does NOT scrape LinkedIn. It only stores a URL +
     headline that the user provided (Claude writes them via `linkedin-set`).
 
@@ -14,7 +14,7 @@ profile.json. Never mirror this file into long-term memory.
 
 Cache location (in order):
   1. $LUMA_RESEARCH
-  2. ~/.luma-filler/research.json
+  2. ~/.lumate/research.json
 
 Usage:
   research.py path
@@ -60,7 +60,7 @@ def research_path():
     p = os.environ.get("LUMA_RESEARCH")
     if p:
         return os.path.expanduser(p)
-    return os.path.expanduser("~/.luma-filler/research.json")
+    return os.path.expanduser("~/.lumate/research.json")
 
 
 def load_cache():
@@ -122,7 +122,7 @@ def parse_flags(args, repeatable=()):  # returns (flags, positionals)
 
 def _http_get_json(url):
     req = urllib.request.Request(url, headers={
-        "User-Agent": "luma-filler",
+        "User-Agent": "lumate",
         "Accept": "application/vnd.github+json",
     })
     try:

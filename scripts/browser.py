@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""luma-filler browser helper — self-contained headless Playwright.
+"""lumate browser helper — self-contained headless Playwright.
 
 Replaces the gstack `browse` binary. No daemon: each command launches a
 persistent browser context, navigates, acts, and exits. Login persists across
@@ -8,18 +8,18 @@ flow works across separate invocations (each re-navigates and re-applies state).
 
 Requires only the Playwright Python client, installed in a dedicated venv (the
 system Python is externally managed — PEP 668):
-    python3 -m venv ~/.luma-filler/venv
-    ~/.luma-filler/venv/bin/pip install playwright
+    python3 -m venv ~/.lumate/venv
+    ~/.lumate/venv/bin/pip install playwright
 The Chromium binary is NOT downloaded — we launch the build already cached on disk
 via executable_path (the shared ms-playwright cache). This script self-bootstraps
 into that venv, so you can invoke it with the system `python3`. If the cache is
-ever gone, run `~/.luma-filler/venv/bin/playwright install chromium` once.
+ever gone, run `~/.lumate/venv/bin/playwright install chromium` once.
 
 NOTE: headless Chromium is killed by Claude Code's default Bash sandbox, so run
 these commands either with the Bash sandbox disabled or via the `!` shell-prefix.
 
-Profile (persistent login):  ~/.luma-filler/pw-profile/
-Screenshots default to       ~/.luma-filler/
+Profile (persistent login):  ~/.lumate/pw-profile/
+Screenshots default to       ~/.lumate/
 
 Commands:
   browser.py login                       # headed one-time sign-in (persists)
@@ -42,9 +42,9 @@ import re
 import sys
 import time
 
-PROFILE_DIR = os.path.expanduser("~/.luma-filler/pw-profile")
-SHOT_DIR = os.path.expanduser("~/.luma-filler")
-VENV_PY = os.path.expanduser("~/.luma-filler/venv/bin/python")
+PROFILE_DIR = os.path.expanduser("~/.lumate/pw-profile")
+SHOT_DIR = os.path.expanduser("~/.lumate")
+VENV_PY = os.path.expanduser("~/.lumate/venv/bin/python")
 
 # Present as a normal desktop Chrome so a legit (logged-in) session isn't
 # false-flagged as a headless bot. This is fingerprint hygiene, NOT a captcha
@@ -63,7 +63,7 @@ COMBO_PLACEHOLDER = "select an option"   # Luma's lazy custom-dropdown trigger t
 COMBO_PROBE_BUDGET_S = 8.0
 COMBO_OPEN_WAIT_MS = 700
 COMBO_MAX_OPTIONS = 40
-FORMS_CACHE = os.path.expanduser("~/.luma-filler/forms-cache.json")
+FORMS_CACHE = os.path.expanduser("~/.lumate/forms-cache.json")
 
 # Visible leaf-text snapshot — diffing it before/after opening a combo reveals the
 # option list (Luma renders options as non-ARIA divs, so role=option finds nothing).
@@ -164,8 +164,8 @@ def _pw():
             os.execv(VENV_PY, [VENV_PY, os.path.abspath(__file__)] + sys.argv[1:])
         sys.stderr.write(
             "playwright not available. One-time setup:\n"
-            "  python3 -m venv ~/.luma-filler/venv\n"
-            "  ~/.luma-filler/venv/bin/pip install playwright\n")
+            "  python3 -m venv ~/.lumate/venv\n"
+            "  ~/.lumate/venv/bin/pip install playwright\n")
         sys.exit(3)
 
 

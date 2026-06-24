@@ -1,5 +1,5 @@
 ---
-name: luma-filler
+name: lumate
 description: >-
   Register / RSVP to a Luma (lu.ma) event automatically, and intelligently. Opens
   the event link in a self-contained headless browser, understands what the event
@@ -24,7 +24,7 @@ metadata:
   version: 1.2.0
 ---
 
-# Luma Filler
+# Lumate
 
 Register the user for a Luma event: understand the event, fill standard fields from
 a saved profile, draft grounded answers to open-ended questions, confirm, submit.
@@ -36,14 +36,14 @@ Three dependency-light helper scripts (all executable, bare paths so they word-s
 in any shell):
 
 ```bash
-PF=~/.claude/skills/luma-filler/scripts/profile.py     # profile: route / persist-field / get / set / match / remember / forget / missing / show
-RS=~/.claude/skills/luma-filler/scripts/research.py    # research: github / summary / linkedin-set / enrich-profile
-BR=~/.claude/skills/luma-filler/scripts/browser.py     # browser: login / status / read / apply / fill / submit / cache-get
+PF=~/.claude/skills/lumate/scripts/profile.py     # profile: route / persist-field / get / set / match / remember / forget / missing / show
+RS=~/.claude/skills/lumate/scripts/research.py    # research: github / summary / linkedin-set / enrich-profile
+BR=~/.claude/skills/lumate/scripts/browser.py     # browser: login / status / read / apply / fill / submit / cache-get
 ```
 
 - **Browser** is self-contained **headless Playwright** (no gstack). Data: profile
-  `~/.luma-filler/profile.json`, research cache `~/.luma-filler/research.json`,
-  persistent login `~/.luma-filler/pw-profile/`, screenshots in `~/.luma-filler/`.
+  `~/.lumate/profile.json`, research cache `~/.lumate/research.json`,
+  persistent login `~/.lumate/pw-profile/`, screenshots in `~/.lumate/`.
 - **Gmail MCP** is connected — usable to read a Luma login code if one is required.
 
 ### Running the scripts (important)
@@ -72,14 +72,14 @@ after is fast and **question-free**:
 ## Setup (run first)
 
 ```bash
-PF=~/.claude/skills/luma-filler/scripts/profile.py
-RS=~/.claude/skills/luma-filler/scripts/research.py
-BR=~/.claude/skills/luma-filler/scripts/browser.py
+PF=~/.claude/skills/lumate/scripts/profile.py
+RS=~/.claude/skills/lumate/scripts/research.py
+BR=~/.claude/skills/lumate/scripts/browser.py
 
 # One-time: Playwright client in a dedicated venv (system Python is PEP-668 managed).
 # Chromium is reused from the shared cache — no large download.
-~/.luma-filler/venv/bin/python -c "import playwright" 2>/dev/null || {
-  python3 -m venv ~/.luma-filler/venv && ~/.luma-filler/venv/bin/pip install playwright
+~/.lumate/venv/bin/python -c "import playwright" 2>/dev/null || {
+  python3 -m venv ~/.lumate/venv && ~/.lumate/venv/bin/pip install playwright
 }
 
 $PF init      # create profile.json if missing
@@ -138,7 +138,7 @@ still works if the user declines to log in, but expect the captcha hand-off then
 ## Step 2 — Read the event and form
 
 ```bash
-$BR read "<url>"   # sandbox-disabled; prints JSON, saves ~/.luma-filler/last-form.png
+$BR read "<url>"   # sandbox-disabled; prints JSON, saves ~/.lumate/last-form.png
 ```
 The JSON has: `title`, `event_text` (for the brief), `button_label` + `button_kind`
 (`proceed`/`paid`/`closed`), `form_opened`, `instant_registered`, and `fields[]`
@@ -310,8 +310,8 @@ $PF show     # confirm profile reflects the answers you saved as you went
 Mirror only durable identity/`about`/recurring fields (name, company, work email, job
 title, socials, city/country, product role, community, languages, marketing opt-in, bio)
 into Claude's memory store — NOT `research.json` (a cache) or event-specific custom answers.
-Update `~/.claude/projects/<your-project>/memory/luma-filler-profile.md` (and a one-line
-pointer in that folder's `MEMORY.md`), keeping `~/.luma-filler/profile.json` as the source
+Update `~/.claude/projects/<your-project>/memory/lumate-profile.md` (and a one-line
+pointer in that folder's `MEMORY.md`), keeping `~/.lumate/profile.json` as the source
 of truth.
 
 ## Auth details & edge cases
@@ -332,5 +332,5 @@ of truth.
 
 End with: event name, outcome (Registered / Pending approval / Waitlisted / Blocked),
 which fields were auto-filled vs drafted vs asked, and where the confirmation screenshot
-was saved (`~/.luma-filler/result.png`). If anything is uncertain, say so plainly rather
+was saved (`~/.lumate/result.png`). If anything is uncertain, say so plainly rather
 than claiming success.
